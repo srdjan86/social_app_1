@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:social_app_1/utils/firebase.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initFirebase();
+
   runApp(const MainApp());
 }
 

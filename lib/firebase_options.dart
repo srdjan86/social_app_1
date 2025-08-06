@@ -72,4 +72,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'social-app-1-9cb08.firebasestorage.app',
     iosBundleId: 'com.example.socialApp1',
   );
+
 }
