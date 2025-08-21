@@ -11,6 +11,7 @@ abstract class Post with _$Post {
     required String content,
     required String userId,
     @Default([]) List<String> imageUrls,
+    @Default([]) List<String> thumbnailUrls,
   }) = _Post;
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);

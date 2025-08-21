@@ -19,6 +19,7 @@ mixin _$Post {
   String get content;
   String get userId;
   List<String> get imageUrls;
+  List<String> get thumbnailUrls;
 
   /// Create a copy of Post
   /// with the given fields replaced by the non-null parameter values.
@@ -39,17 +40,25 @@ mixin _$Post {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.userId, userId) || other.userId == userId) &&
-            const DeepCollectionEquality().equals(other.imageUrls, imageUrls));
+            const DeepCollectionEquality().equals(other.imageUrls, imageUrls) &&
+            const DeepCollectionEquality()
+                .equals(other.thumbnailUrls, thumbnailUrls));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, content, userId,
-      const DeepCollectionEquality().hash(imageUrls));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      content,
+      userId,
+      const DeepCollectionEquality().hash(imageUrls),
+      const DeepCollectionEquality().hash(thumbnailUrls));
 
   @override
   String toString() {
-    return 'Post(id: $id, title: $title, content: $content, userId: $userId, imageUrls: $imageUrls)';
+    return 'Post(id: $id, title: $title, content: $content, userId: $userId, imageUrls: $imageUrls, thumbnailUrls: $thumbnailUrls)';
   }
 }
 
@@ -63,7 +72,8 @@ abstract mixin class $PostCopyWith<$Res> {
       String title,
       String content,
       String userId,
-      List<String> imageUrls});
+      List<String> imageUrls,
+      List<String> thumbnailUrls});
 }
 
 /// @nodoc
@@ -83,6 +93,7 @@ class _$PostCopyWithImpl<$Res> implements $PostCopyWith<$Res> {
     Object? content = null,
     Object? userId = null,
     Object? imageUrls = null,
+    Object? thumbnailUrls = null,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -104,6 +115,10 @@ class _$PostCopyWithImpl<$Res> implements $PostCopyWith<$Res> {
       imageUrls: null == imageUrls
           ? _self.imageUrls
           : imageUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      thumbnailUrls: null == thumbnailUrls
+          ? _self.thumbnailUrls
+          : thumbnailUrls // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
   }
@@ -203,7 +218,7 @@ extension PostPatterns on Post {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String id, String title, String content, String userId,
-            List<String> imageUrls)?
+            List<String> imageUrls, List<String> thumbnailUrls)?
         $default, {
     required TResult orElse(),
   }) {
@@ -211,7 +226,7 @@ extension PostPatterns on Post {
     switch (_that) {
       case _Post() when $default != null:
         return $default(_that.id, _that.title, _that.content, _that.userId,
-            _that.imageUrls);
+            _that.imageUrls, _that.thumbnailUrls);
       case _:
         return orElse();
     }
@@ -233,14 +248,14 @@ extension PostPatterns on Post {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(String id, String title, String content, String userId,
-            List<String> imageUrls)
+            List<String> imageUrls, List<String> thumbnailUrls)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _Post():
         return $default(_that.id, _that.title, _that.content, _that.userId,
-            _that.imageUrls);
+            _that.imageUrls, _that.thumbnailUrls);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -261,14 +276,14 @@ extension PostPatterns on Post {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(String id, String title, String content, String userId,
-            List<String> imageUrls)?
+            List<String> imageUrls, List<String> thumbnailUrls)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _Post() when $default != null:
         return $default(_that.id, _that.title, _that.content, _that.userId,
-            _that.imageUrls);
+            _that.imageUrls, _that.thumbnailUrls);
       case _:
         return null;
     }
@@ -283,8 +298,10 @@ class _Post implements Post {
       required this.title,
       required this.content,
       required this.userId,
-      final List<String> imageUrls = const []})
-      : _imageUrls = imageUrls;
+      final List<String> imageUrls = const [],
+      final List<String> thumbnailUrls = const []})
+      : _imageUrls = imageUrls,
+        _thumbnailUrls = thumbnailUrls;
   factory _Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 
   @override
@@ -302,6 +319,15 @@ class _Post implements Post {
     if (_imageUrls is EqualUnmodifiableListView) return _imageUrls;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_imageUrls);
+  }
+
+  final List<String> _thumbnailUrls;
+  @override
+  @JsonKey()
+  List<String> get thumbnailUrls {
+    if (_thumbnailUrls is EqualUnmodifiableListView) return _thumbnailUrls;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_thumbnailUrls);
   }
 
   /// Create a copy of Post
@@ -329,17 +355,25 @@ class _Post implements Post {
             (identical(other.content, content) || other.content == content) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             const DeepCollectionEquality()
-                .equals(other._imageUrls, _imageUrls));
+                .equals(other._imageUrls, _imageUrls) &&
+            const DeepCollectionEquality()
+                .equals(other._thumbnailUrls, _thumbnailUrls));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, content, userId,
-      const DeepCollectionEquality().hash(_imageUrls));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      content,
+      userId,
+      const DeepCollectionEquality().hash(_imageUrls),
+      const DeepCollectionEquality().hash(_thumbnailUrls));
 
   @override
   String toString() {
-    return 'Post(id: $id, title: $title, content: $content, userId: $userId, imageUrls: $imageUrls)';
+    return 'Post(id: $id, title: $title, content: $content, userId: $userId, imageUrls: $imageUrls, thumbnailUrls: $thumbnailUrls)';
   }
 }
 
@@ -354,7 +388,8 @@ abstract mixin class _$PostCopyWith<$Res> implements $PostCopyWith<$Res> {
       String title,
       String content,
       String userId,
-      List<String> imageUrls});
+      List<String> imageUrls,
+      List<String> thumbnailUrls});
 }
 
 /// @nodoc
@@ -374,6 +409,7 @@ class __$PostCopyWithImpl<$Res> implements _$PostCopyWith<$Res> {
     Object? content = null,
     Object? userId = null,
     Object? imageUrls = null,
+    Object? thumbnailUrls = null,
   }) {
     return _then(_Post(
       id: null == id
@@ -395,6 +431,10 @@ class __$PostCopyWithImpl<$Res> implements _$PostCopyWith<$Res> {
       imageUrls: null == imageUrls
           ? _self._imageUrls
           : imageUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      thumbnailUrls: null == thumbnailUrls
+          ? _self._thumbnailUrls
+          : thumbnailUrls // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
   }

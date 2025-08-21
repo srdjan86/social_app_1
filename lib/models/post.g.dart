@@ -15,6 +15,10 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
               ?.map((e) => e as String)
               .toList() ??
           const [],
+      thumbnailUrls: (json['thumbnailUrls'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
@@ -23,4 +27,5 @@ Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
       'content': instance.content,
       'userId': instance.userId,
       'imageUrls': instance.imageUrls,
+      'thumbnailUrls': instance.thumbnailUrls,
     };
